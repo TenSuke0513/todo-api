@@ -1,19 +1,17 @@
 package main
 
 import (
-	"log"
+	"net/http"
 
-	"github.com/evrone/go-clean-template/config"
-	"github.com/evrone/go-clean-template/internal/app"
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
-	// Configuration
-	cfg, err := config.NewConfig()
-	if err != nil {
-		log.Fatalf("Config error: %s", err)
-	}
+	e := echo.New()
 
-	// Run
-	app.Run(cfg)
+	e.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Hello, world!")
+	})
+
+	e.Logger.Fatal(e.Start(":8080"))
 }
